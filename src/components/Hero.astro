@@ -1,0 +1,100 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  description: string;
+}
+
+const { name, title, description } = Astro.props;
+---
+<section class="min-h-screen flex items-center justify-center text-center px-4 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-gray-900/20 animate-pulse"></div>
+  
+  <div class="relative z-10 flex flex-col items-center">
+    <div class="mb-8 relative group">
+      <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-purple-500 transform transition-transform duration-500 group-hover:scale-105">
+        <img
+          src="https://fotoporfolio.s3.us-east-1.amazonaws.com/fotoperfil%7D.jpg"
+          alt={name}
+          class="w-full h-full object-cover"
+          onerror="this.src='https://via.placeholder.com/400x400'"
+        />
+      </div>
+      <div class="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+    </div>
+
+    <h1 class="text-6xl font-bold mb-4 animate-fadeIn">
+      <span class="text-gradient bg-clip-text">{name}</span>
+    </h1>
+    <h2 class="text-3xl mb-6 text-purple-300 animate-slideUp">{title}</h2>
+    <p class="max-w-2xl mx-auto text-gray-300 text-lg animate-slideUp">
+      {description}
+    </p>
+    
+    <div class="mt-8 flex gap-4 animate-fadeIn">
+      <a href="#projects" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full transition-colors duration-300">
+        Ver Proyectos
+      </a>
+      <a href="#contact" class="px-6 py-3 border border-purple-500 hover:bg-purple-500/20 rounded-full transition-all duration-300">
+        Contacta Conmigo
+      </a>
+    </div>
+  </div>
+
+  <!-- Animated background particles -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    {Array.from({ length: 20 }).map(() => (
+      <div class="particle"></div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .animate-fadeIn {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.8s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgb(var(--accent-light));
+    border-radius: 50%;
+    animation: float 15s infinite linear;
+    opacity: 0.3;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(100vh) translateX(0);
+    }
+    100% {
+      transform: translateY(-100vh) translateX(100px);
+    }
+  }
+
+  .particle {
+    left: calc(random() * 100vw);
+    animation-delay: calc(random() * -15s);
+  }
+</style>
